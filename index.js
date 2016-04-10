@@ -10,6 +10,7 @@
         for(i = 0; i <= counter; i++){
             addTableElement(i);
         }
+        updateBalance();
     }
 })();
 // Get the button, and when the user clicks on it, execute saveTransaction
@@ -62,6 +63,8 @@ function saveTransaction() {
     document.forms["new_transaction"]["type"].value = '';
     document.forms["new_transaction"]["description"].value = '';
     document.forms["new_transaction"]["amount"].value = '';
+    
+    updateBalance();
 
 }
 
@@ -86,4 +89,24 @@ function addTableElement(counter){
     transaction_node.appendChild(amount_node);
     //append tr to tbody
     transactions.appendChild(transaction_node);
+}
+
+function updateBalance(){
+    var counter;
+    if(!localStorage.counter){
+        return false;
+    } else {
+        counter = Number(localStorage.counter);
+        var i, transaction, sum = 0;
+        for(i = 0; i <= counter; i++){
+            transaction = JSON.parse(localStorage.getItem(i));
+            if(transaction.type == "Expense")
+                sum = sum - Number(transaction.amount);
+            if(transaction.type == "Income")
+                sum = sum + Number(transaction.amount);
+        }
+        
+        var balance = document.getElementById("balance");
+        balance.innerHTML = sum;
+    }
 }
