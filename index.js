@@ -88,7 +88,7 @@ function addTableElement(counter){
     transaction_node.appendChild(description_node);
     transaction_node.appendChild(amount_node);
     //append tr to tbody
-    transactions.appendChild(transaction_node);
+    transactions.insertBefore(transaction_node, transactions.firstChild);
 }
 
 function updateBalance(){
