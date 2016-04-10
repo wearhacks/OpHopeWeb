@@ -81,7 +81,7 @@ function addTableElement(counter){
     //append data to the td elements
     type_node.appendChild(document.createTextNode(transaction.type));
     description_node.appendChild(document.createTextNode(transaction.description));
-    amount_node.appendChild(document.createTextNode(transaction.amount));
+    amount_node.appendChild(document.createTextNode("$"+transaction.amount));
     //append the td elemets to one tr element
     var transaction_node = document.createElement("tr");
     transaction_node.appendChild(type_node);
@@ -107,6 +107,6 @@ function updateBalance(){
         }
         
         var balance = document.getElementById("balance");
-        balance.innerHTML = sum;
+        balance.innerHTML = "$" + sum;
     }
 }
