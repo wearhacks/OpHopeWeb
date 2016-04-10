@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Standard Meta -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+        <!-- Site Properties -->
+        <title>Money Manager</title>
+        
+        <!--Import CSS-->
+        <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+        <script src="assets/semantic.min.js"></script>
+        <script src="assets/jquery-1.12.3.js"></script>
+    </head>
+    <body>
+        <div class="ui container">
+            <h1 class="ui center aligned header">Money Manager</h1>
+            <h2 class="ui center aligned header">Transactions</h2>
+        
+            <form name="new_transaction" class="ui form">
+                <div class="ui grid">
+                    <div class="fourteen wide column">
+                        <div class="three fields">
+                            <div class="field">
+                                <select name="type">
+                                    <option value="" disabled selected>Type of transaction</option>
+                                    <option value="Income">Income</option>
+                                    <option value="Expense">Expense</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <input type="text" placeholder="Description" name="description">
+                            </div>
+                            <div class="field">
+                                <input type="number" placeholder="Amount" name="amount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="two wide column">
+                        <input id="submit" class="ui primary button" type="button" value="Update">
+                    </div>
+                </div>
+            </form>
+
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="transactions">
+                    <tr>
+                        <td>Income</td>
+                        <td>Monthly Paycheck</td>
+                        <td>$2000</td>
+                    </tr>
+                    <tr>
+                        <td>Expense</td>
+                        <td>Rent</td>
+                        <td>$800</td>
+                    </tr>
+                    <tr>
+                        <td>Expense</td>
+                        <td>Groceries</td>
+                        <td>$30</td>
+                    </tr>
+                    <tr>
+                        <td>Expense</td>
+                        <td>Fallout 4</td>
+                        <td>$70</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2">
+                            Balance
+                        </th>
+                        <th>
+                            $1100
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <!-- Content JS HERE !-->
+        <style>
+          .last.container {
+            margin-bottom: 300px !important;
+          }
+          h1.ui.center.header {
+            margin-top: 2em;
+          }
+          h2.ui.center.header {
+            margin: 2em 0em 2em;
+          }
+          h3.ui.center.header {
+            margin-top: 2em;
+            padding: 2em 0em;
+          }
+        </style>
+        
+        <script>
+            // Get the button, and when the user clicks on it, execute save transaction
+            document.getElementById("submit").onclick = function() {saveTransaction()};
+            /* myFunction toggles between adding and removing the show class, which is used to hide and show the dropdown content */
+            function saveTransaction() {
+                //grab the data and save to vars
+                var type = document.forms["new_transaction"]["type"].value;
+                var description = document.forms["new_transaction"]["description"].value;
+                var amount = document.forms["new_transaction"]["amount"].value;
+                
+                //validate the data
+                if (type == null || type == "") {
+                    alert("You must select the Type of transaction");
+                    return false;
+                }
+                if (description == null || description == "") {
+                    alert("You must provide a Description of the transaction");
+                    return false;
+                }
+                if (amount == null || amount == "") {
+                    alert("You must specify the Amount of the transaction");
+                    return false;
+                }
+                
+                //convert to object
+                var transaction = {};
+                transaction['type'] = type;
+                transaction['description'] = description;
+                transaction['amount'] = amount;
+
+                //initialise counter to keep track of how many transactions there are so far
+                var counter;
+                if(!localStorage.counter){
+                    counter = 0;
+                } else {
+                    counter = Number(localStorage.counter) + 1;
+                }
+
+                //save to local storage
+                localStorage.setItem(counter, JSON.stringify(transaction));
+                localStorage.setItem("counter", counter);
+                console.log("object saved: ", JSON.parse(localStorage.getItem(counter)));
+
+                //add DOM element
+                
+                //get the table tbody
+                var transactions = document.getElementById('transactions');
+                
+                //add content to the new element just created
+                //create the td elements
+                var type_node = document.createElement("td");
+                var description_node = document.createElement("td");
+                var amount_node = document.createElement("td");
+                type_node.appendChild(document.createTextNode(type));
+                description_node.appendChild(document.createTextNode(description));
+                amount_node.appendChild(document.createTextNode(amount));
+                //add them to a tr
+                var transaction_node = document.createElement("tr");
+                transaction_node.appendChild(type_node);
+                transaction_node.appendChild(description_node);
+                transaction_node.appendChild(amount_node);
+                //append to tbody
+                transactions.appendChild(transaction_node);
+                
+                //clear form inputs
+                document.forms["new_transaction"]["type"].value = '';
+                document.forms["new_transaction"]["description"].value = '';
+                document.forms["new_transaction"]["amount"].value = '';
+
+            }
+        </script>
+
+    </body>
+</html>
