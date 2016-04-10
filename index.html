@@ -54,26 +54,6 @@
                     </tr>
                 </thead>
                 <tbody id="transactions">
-                    <tr>
-                        <td>Income</td>
-                        <td>Monthly Paycheck</td>
-                        <td>$2000</td>
-                    </tr>
-                    <tr>
-                        <td>Expense</td>
-                        <td>Rent</td>
-                        <td>$800</td>
-                    </tr>
-                    <tr>
-                        <td>Expense</td>
-                        <td>Groceries</td>
-                        <td>$30</td>
-                    </tr>
-                    <tr>
-                        <td>Expense</td>
-                        <td>Fallout 4</td>
-                        <td>$70</td>
-                    </tr>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -88,7 +68,7 @@
             </table>
         </div>
         
-        <!-- Content JS HERE !-->
+        <!-- Adds spacing to elements-->
         <style>
           .last.container {
             margin-bottom: 300px !important;
@@ -105,77 +85,7 @@
           }
         </style>
         
-        <script>
-            // Get the button, and when the user clicks on it, execute save transaction
-            document.getElementById("submit").onclick = function() {saveTransaction()};
-            /* myFunction toggles between adding and removing the show class, which is used to hide and show the dropdown content */
-            function saveTransaction() {
-                //grab the data and save to vars
-                var type = document.forms["new_transaction"]["type"].value;
-                var description = document.forms["new_transaction"]["description"].value;
-                var amount = document.forms["new_transaction"]["amount"].value;
-                
-                //validate the data
-                if (type == null || type == "") {
-                    alert("You must select the Type of transaction");
-                    return false;
-                }
-                if (description == null || description == "") {
-                    alert("You must provide a Description of the transaction");
-                    return false;
-                }
-                if (amount == null || amount == "") {
-                    alert("You must specify the Amount of the transaction");
-                    return false;
-                }
-                
-                //convert to object
-                var transaction = {};
-                transaction['type'] = type;
-                transaction['description'] = description;
-                transaction['amount'] = amount;
-
-                //initialise counter to keep track of how many transactions there are so far
-                var counter;
-                if(!localStorage.counter){
-                    counter = 0;
-                } else {
-                    counter = Number(localStorage.counter) + 1;
-                }
-
-                //save to local storage
-                localStorage.setItem(counter, JSON.stringify(transaction));
-                localStorage.setItem("counter", counter);
-                console.log("object saved: ", JSON.parse(localStorage.getItem(counter)));
-
-                //add DOM element
-                
-                //get the table tbody
-                var transactions = document.getElementById('transactions');
-                
-                //add content to the new element just created
-                //create the td elements
-                var type_node = document.createElement("td");
-                var description_node = document.createElement("td");
-                var amount_node = document.createElement("td");
-                type_node.appendChild(document.createTextNode(type));
-                description_node.appendChild(document.createTextNode(description));
-                amount_node.appendChild(document.createTextNode(amount));
-                //add them to a tr
-                var transaction_node = document.createElement("tr");
-                transaction_node.appendChild(type_node);
-                transaction_node.appendChild(description_node);
-                transaction_node.appendChild(amount_node);
-                //append to tbody
-                transactions.appendChild(transaction_node);
-                
-                //clear form inputs
-                document.forms["new_transaction"]["type"].value = '';
-                document.forms["new_transaction"]["description"].value = '';
-                document.forms["new_transaction"]["amount"].value = '';
-
-            }
-        </script>
+        <script src="index.js"></script>
 
     </body>
 </html>
