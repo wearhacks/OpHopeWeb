@@ -1,0 +1,184 @@
+Recall: the purpose of HTML is to describe what should be rendered by the browser.
+
+The easiest way to make an HTML page that we can view at our browser is to create a 
+file that contains HTML code and open it with the browser. We will have you writing some
+HTML shortly *right here* though!
+
+Some programming traditions are not to be taken lightly... let alone being broken. 
+Writing code that ends up in "Hello world" being displayed on your screen is one of them.
+Here is a version of "Hello World" in HTML:
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>Hello world!</p> 
+    </body>
+</html>
+
+Whoah! Let's see what's going on there:
+
+1. We are telling the browser that this file's ((doc)ument's) content type is HTML: <!DOCTYPE html>
+   If it helps, remember document + type = doctype!
+2. As if the doctype was not enough, we also have an HTML *tag/element*: <html>...</html>
+   All content and annotative data goes in there.
+3. Next, we define the *body* of the document. Why a body? Because in HTML pages there is also
+   a head as we will see later.
+4. Finally, for the actual content, we define a paragraph inside <body> using the <p> tag. 
+   It contains the text which will be displayed.
+
+Exercise: Go ahead then, make your own "Hello World" page!
+    1. First, type the doctype! (how playful) 
+    2. Second, add the <html> element. Remember to match it with a closing one! (</html>)
+    3. Next up, <body>. It must go *inside* <html>!
+    4. Finally, make a paragraph containing some text inside the body, using <p>.
+
+Every HTML document itself is what we call a "tree". There is the "root"
+element (<html>) inside which we embed other tags. We can keep embedding 
+tags inside one another to our heart's desire, until we get to a "final" element.
+In our "Hello World" page this is the "Hello World" text itself.
+
+Think of an HTML page as a family tree. Because we do not put anything except for the doctype 
+outside, the <html> element is the ancestor of every other tag in the page: the <body> element 
+is one of its children. Similarly, the <p> element is a child of <body>. This concept 
+will be important for manipulating HTML pages with small programs (called "scripts") 
+written in JavaScript later.
+
+We could have put anything we wanted in the body as long as the browser knows what to do with
+it. HTML has all sorts of elements you can put in there as long as you (and the browser) know about them. 
+
+Let's take a tour of a few other tags we can use inside HTML pages. While doing that, we
+will develop a simple page that will serve as the interface for a money management application.
+
+- Headings: h1, h2, h3, h4. These are usually used for titles and similar content. 
+                            They go from h1 up to h4, in order of scope: h1 is the super-heading
+                            of h2 and so on. For example:
+  <h1>NBA Team Rosters</h1>
+  <h2>Eastern Conference</h2>
+  <h3>Southeast Division</h3>
+  <h4>Atlanta Hawks</h4>
+
+  Exercise: Create the page's main header which displays "Money Manager" using <h1>.
+  Exercise: Create a subheader which reads "Transactions" using <h2>.
+
+- Dropdown list: This is used whenever you have a list of values from which the user would 
+                 have to choose (one only!). You supply a list of options as <option> tags.
+                 Each <option> can have a value *attribute*. Attributes are accompanying HTML
+                 elements either to provide additional information to the browser about their 
+                 rendering or to provide values that are used by other code (e.g. CSS stylesheets,
+                 JavaScript scripts).
+
+                 The "value" attribute in <option> tags, in particular, is used by scripts that are
+                 supposed to look at the option that was selected and do something with it. This
+                 can be different from the text contained in the tag.
+
+                 A full <select> tag example:
+  
+  <select name="conference">
+    <option disabled selected>Choose a conference:</option>
+    <option value="Eastern">Eastern Conference</option>
+    <option value="Western">Western Conference</option>
+  </select>
+
+  The first <option> in that example serves to indicate to the user that they should select one
+  of the other options using the dropdown. So it is selected by default using the "selected" attribute. 
+  Since it is not a real option, it is disabled with the "disabled" attribute... and it has no value.
+
+  Exercise: Make a <select> tag to choose between an "Income" and an "Expense" transaction. Name it "transaction_type".
+  Exercise: Add 2 options: one for "Income" transactions and one for expenses.
+  Exercise: Add an instructive option tag that is disabled and selected by default with the text "Choose a transaction type:"
+
+- Forms: They are used when we want to submit data to another program (usually a script) for processing.
+         They consist of a <form> tag that wraps a number of <input> tags which contain the actual
+         data that is sent over. The input can be, for example, text fields, radio buttons, buttons...
+
+  <form name="player_submission"> 
+      <input type="text" placeholder="First Name" name="first_name">
+      <input type="text" placeholder="Last Name" name="last_name">
+      <input type="number" placeholder="Jersey Number" name="jersey_number">
+      <input type="button" value="Submit">
+  </form>
+
+  Notice how the input tags do not contain a matching closing tag because they do not have any actual text content!
+
+  Exercise: Create a form named "new_transaction" to create new transaction entries.
+  Exercise: Add an input field that will contain text for the Description of a transaction.
+  Exercise: Add an input field that will contain the amount of a transaction.
+  Exercise: Finally, create the tag for the button of the form.
+
+- Tables: Tables are used for displaying tabular data: for example, a list of players in a team.
+          They consist of <table> which contains <tr> tags for each (t)able (r)ow.
+          Inside the rows you can either put a (t)able (h)eader (with <th>) or 
+          (t)able (d)ata (with <td>).
+
+  <table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Number</th>
+    </tr>
+    <tr>
+        <td>Tim</td>
+        <td>Hardaway Jr.</td>
+        <td>10</td>
+    </tr>
+    <tr>
+        <td>Kirk</td>
+        <td>Hinrich</td>
+        <td>12</td>
+    </tr>
+  </table>
+
+  Exercise: Create a table element. It will contain transaction entries.
+  Exercise: Create one row for the header.
+  Exercise: Create 3 header columns: one for the type of the transaction ("Type"), another for the 
+            description ("Description") and a final one for the amount ("Amount").
+
+  Our table will not contain any actual transaction entries yet. We will generate those with a script
+  based on the user input!
+
+  You can use some additional elements to better indicate which section is which on your table
+  ((head)er, body, (foot)er):
+  
+  <table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Number</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Tim</td>
+            <td>Hardaway Jr.</td>
+            <td>10</td>
+            <td>24</td>
+        </tr>
+        <tr>
+            <td>Kirk</td>
+            <td>Hinrich</td>
+            <td>12</td>
+            <td>35</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Average Age</td>
+            <td>29.5</td>
+        <tr>
+    </tfoot>
+  </table>
+
+  Exercise: Wrap the existing table row into a header section.
+  Exercise: Although we have no transactions yet, create a body section on the table
+            to indicate where they will go.
+  Exercise: Create a footer section which will contain the current balance (incomes - expenses):
+            - Create the footer section
+            - Create a table row
+            - Create 2 data columns, one that contains the text "Balance:" and another that will 
+              contain the calculated balance.
+
+That wraps it up for the static content of our page. Although all the elements
+we need are there, you are probably not very impressed by how it looks, are you?
+Let's make it a bit prettier with CSS!
