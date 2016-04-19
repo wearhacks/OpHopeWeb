@@ -100,9 +100,9 @@ will develop a simple page that will serve as the interface for a money manageme
 
   Notice how the input tags do not contain a matching closing tag because they do not have any actual text content!
 
-  Exercise: Create a form named "new_transaction" to create new transaction entries.
-  Exercise: Add an input field that will contain text for the Description of a transaction.
-  Exercise: Add an input field that will contain the amount of a transaction.
+  Exercise: Create a form named "new_transaction" to create new transaction entries around the <select> tag you made previously.
+  Exercise: Add to it an input field that will contain text for the Description of a transaction.
+  Exercise: Add another input field that will contain the amount of a transaction.
   Exercise: Finally, create the tag for the button of the form.
 
 - Tables: Tables are used for displaying tabular data: for example, a list of players in a team.
