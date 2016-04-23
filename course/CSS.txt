@@ -183,13 +183,4 @@ Exercise: The button overflows now. Change the number of columns it spans to 2.
 That concludes the introduction to CSS. Although using frameworks is a common
 practice amongst web designers, knowing how to write CSS by hand is always handy.
 
-A good starting point is http://www.w3schools.com/css/ .
-
-c. Introduce Adobe Brackets (using this for its live display and easy to use UI)
-
-(everyone should be able to download it and set it up on their machines - if they
- do not want to follow) 
-
-If you want to use your favorite text editor (notepad, TextEdit, vim, whatever), that's
-perfectly fine, you will just have to refresh your browser manually whenever you change
-files.
+A good starting point is http://www.w3schools.com/css/. Experiment freely, the more you "break" stuff the more you will learn!
