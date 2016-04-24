@@ -32,6 +32,8 @@ Exercise: Go ahead then, make your own "Hello World" page!
     3. Next up, <body>. It must go *inside* <html>!
     4. Finally, make a paragraph containing some text inside the body, using <p>.
 
+PRO TIP: It's always a good idea to close your tags as soon as you create them. That way you dont have to remember to close them.
+
 Think of an HTML page as a family tree. Because we do not put anything except for the doctype 
 outside, the <html> element is the ancestor of every other tag in the page: the <body> element 
 is one of its children. Similarly, the <p> element is a child of <body>. This concept 
@@ -176,6 +178,29 @@ will develop a simple page that will serve as the interface for a money manageme
             - Create a table row
             - Create 2 data columns, one that contains the text "Balance:" and another that will 
               contain the calculated balance.
+
+Now we know how to tell the browser exactly what to display in the browser window by adding tags 
+to the <body> tag of our HTML document. However we almost always need to tell the browser more than
+just that to make our pages look prettier and make them more funcitonal. This information is called metadata.
+We use the head of the html document for this. The head goes just before the body like so:
+
+<html>
+  <head>
+    All metadata goes here
+  </head>
+  <body>
+    All the tags go here
+  </body>
+</html>
+
+For now we will use the head tag to tell the browser what the title of our page is using the <title> tag.
+  Exercise: Add a title to your HTML document.
+            - Add the <head> tag inside the <html> tag
+            - Add the <title> tag inside the <head> tag
+            - Add the title of the page inside the <title> tag
+            - Remember to close your tags!
+
+In later sections of this tutorial, we will learn about more uses of the html head. 
 
 That wraps it up for the static content of our page. Although all the elements
 we need are there, you are probably not very impressed by how it looks, are you?
