@@ -32,16 +32,14 @@ Exercise: Go ahead then, make your own "Hello World" page!
     3. Next up, <body>. It must go *inside* <html>!
     4. Finally, make a paragraph containing some text inside the body, using <p>.
 
-Every HTML document itself is what we call a "tree". There is the "root"
-element (<html>) inside which we embed other tags. We can keep embedding 
-tags inside one another to our heart's desire, until we get to a "final" element.
-In our "Hello World" page this is the "Hello World" text itself.
-
 Think of an HTML page as a family tree. Because we do not put anything except for the doctype 
 outside, the <html> element is the ancestor of every other tag in the page: the <body> element 
 is one of its children. Similarly, the <p> element is a child of <body>. This concept 
 will be important for manipulating HTML pages with small programs (called "scripts") 
 written in JavaScript later.
+
+In more technical terms, every HTML document is a "tree". It's first tag (<html>) 
+is called the "root element" of the tree. One tag can contain an infinite number of tags as its children. 
 
 We could have put anything we wanted in the body as long as the browser knows what to do with
 it. HTML has all sorts of elements you can put in there as long as you (and the browser) know about them. 
