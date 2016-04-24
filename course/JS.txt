@@ -1,0 +1,19 @@
+make a button
+do onclick and display alert box
+create function
+
+
+remember we talked about document and trees while learning HTML, we're finally going to put that to use.
+
+First off, summon your HTML skills and make a webpage with a simple button that says "Click me!" in it.
+
+So far, we've worked with HTML bodies to tell the browser what to display to the user. Let's bring that head we told you about earlier. Just before the <body> tag, place a head tag (remember to close it) like so:
+
+<html>
+	<head>
+	</head>
+
+	<body>
+	</body>
+</html>
+
