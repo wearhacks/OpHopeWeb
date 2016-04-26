@@ -1,19 +1,248 @@
-make a button
-do onclick and display alert box
-create function
-
-
-remember we talked about document and trees while learning HTML, we're finally going to put that to use.
+We will be writing a script that makes a pop-up box appear with the message "You clicked me!" when you click on the button.
 
 First off, summon your HTML skills and make a webpage with a simple button that says "Click me!" in it.
 
-So far, we've worked with HTML bodies to tell the browser what to display to the user. Let's bring that head we told you about earlier. Just before the <body> tag, place a head tag (remember to close it) like so:
+	<button>Click Me!</button>
 
-<html>
-	<head>
-	</head>
+Next up, we will introdude a new tag called <script>. 
+We write a set of instructions inside this that tell the browser how to behave based on certain inputs. 
+We will look into user input for now. 
+
+Place that <script> tag after all the elements inside the <body> tag like so:
 
 	<body>
+		...
+		<script></script>
 	</body>
-</html>
 
+Nothing else should be below it. 
+
+Now we need to give this button an identifier so we (and the browser) know which button we are referring to. 
+There could be multiple buttons in one page. We do this by adding an id to the button (this id can be anything you want):
+
+<button id="my-button">Click Me!</button>
+
+The language that is used to write this script is called Javascript or in short, JS. Let's look at some code:
+
+	<script>
+		var button = document.getElementById("my-button");
+	</script>
+
+We just defined a variable that points to the button we created earlier. 
+Now lets break this down and look at what is happening here. 
+	- The 'document' keyword (keywords are special reserved words that have a predefined meaning) refers to the entire HTML document as an object (/*definition of an object*/). 
+	- Then 'getElementById' does exactly what it says. It searches our 'document' for the element id specified in the braces '()'
+	- In this case it is "my-button" so it searches for that element and saves the address to its location in the document. 
+	- Then this is stored in the variable 'button' and from here on, you can treat the button variable as an object and perform actions on it
+
+Exercise: Grab that HTML button we created and import it into our JS. 
+
+Next we will bind a custom function to this button's 'onclick' event:
+
+	<script>
+		var button = document.getElementById("my-button");
+		button.onclick = function () {
+			// some function
+		};
+	</script>
+
+Then we want to be able to make that pop-up message appear when the user clicks on the button. 
+For this we will add the commands needed inside the custom function we just created:
+
+	<script>
+		var button = document.getElementById("my-button");
+		button.onclick = function () {
+			alert("You clicked me!");
+		};
+	</script>
+
+That's it! You just created a button that gives a pop-up message to the user when clicked. 
+
+Next we will look at how to create forms and save their data locally. 
+Lets create the form that the user can enter data into. 
+
+Exercise: We will make a form that has your favourite movie name and it's release year in it. 
+			- Make the form by declaring the <form> tag
+			- Place the appropriate inputs inside the <form> tag
+			- Add a submit button to your form
+			- Make sure to give an id to the submit button so we know which button we are working with
+			- Try making the form look good by using the CSS you learned in the previous chapter
+
+Now lets go back to our script and write the logic that will process this form. 
+To make things easier we can move the custom function we defined earlier outside the event binding:
+
+	<script>
+		var button = document.getElementById("submit");
+		button.onclick = function () {saveMovie()};
+
+		function saveMovie() {
+			alert("You clicked me!");
+		}
+	</script>
+
+Notice that I changed the button id to "submit". 
+This could be anything but should match the id you gave to the submit button when you made the form. 
+Now lets grab that data from the form and save it into variables. 
+
+	function saveMovie() {
+		alert("You clicked me!");
+		var movie_name = document.forms["my-movie-form"]["movie-name"].value;
+		var movie_year = document.forms["my-movie-form"]["movie-year"].value;
+	}
+
+Lets take a closer look to what is happening here:
+	1. We call the 'document' object that contains all the elements on our page like before
+	2. Then we pick all the 'forms' inside our 'document' and specify the form name. In this case it is "my-movie-form". Make sure it matches what you defined while making the HTML form.
+	3. Next we grab the specific element, "movie-name" from inside the "my-movie-form" and get its value.
+	4. We do the same for any remaining fields. 
+
+So far so good. We have the data that the user input in our JS block. Now let's make sure that the data is valid input. 
+To do that we will write some validation checks. These checks could be whatever you want them to be. 
+It could be making sure that the users dont input a movie that hasnt been released yet by checking if the year input is not more than the current year, or to make sure that they have actually input something in the fields. 
+For now we will check if the two inputs are not blank and the user has input a valid date by checking its range. 
+	
+	function saveMovie() {
+
+		...
+
+		//check for empties 
+	    if (movie_name == null || movie_name == "") {
+	        alert("You must select the Type of transaction");
+	        return false;
+	    }
+	    if (movie_year == null || movie_year == "") {
+	        alert("You must provide a Description of the transaction");
+	        return false;
+	    }
+
+	    //check if the year is in the correct range
+	    if (movie_year < 999 || movie_year > 9999) {
+	    	alert("The year entered is invlaid. Please enter the correct year");
+	    	return false;
+	    }
+    }
+
+NOTE: At the end of each check, we have this line that says 'return false;'. 
+	This introduces an important programming concept, Function Returns. 
+	When JavaScript reaches a return statement, the function will stop executing.
+	If the function was invoked from a statement, JavaScript will "return" to execute the code after the invoking statement.
+	Functions often compute a return value. The return value is "returned" back to the "caller".
+	In this case we are returning a 'false' value to stop further execution of the program and indicate that there was an error.
+
+So far we've managed to grab the data from the user and process it. Great job! 
+Next we'll look into saving this data locally so that the user can view it when they visit the site back again.
+For our purposes, Local Web Storage is going to do the trick. 
+
+What is HTML Local Storage?
+With local storage, web applications can store data locally within the user's browser.
+Before HTML5, application data had to be stored in cookies, included in every server request. 
+Local storage is more secure, and large amounts of data can be stored locally, without affecting website performance.
+Unlike cookies, the storage limit is far larger (at least 5MB) and information is never transferred to the server.
+Local storage is per origin (per domain and protocol). All pages, from one origin, can store and access the same data.
+
+If you wanted to view the data, it would look something like this:
+
+--------+-----------------------------------------------------------------------------
+Key 	| Value
+--------+-----------------------------------------------------------------------------
+counter	| 2
+data	| {"0":{"type":"Income","description":"Salary","amount":"2200"},"counter":0}
+login	| {"username" : "foobar", "auth_token" : "09usadf340ujasdf9u4320f9asof"}
+--------+-----------------------------------------------------------------------------
+
+Now let's look at how to save the data into Local Web Storage.
+
+	// Store
+	localStorage.setItem("mykey", "some value"); //this will create a new key-value pair in localStorage
+	// Retrieve
+	var myvar = localStorage.mykey; // this will load the value stored at "mykey" from localStorage into the variable "myvar"
+
+
+After the above operation, our localStorage would look something like this:
+
+--------+-----------------------------------------------------------------------------
+Key 	| Value
+--------+-----------------------------------------------------------------------------
+counter	| 2
+data	| {"0":{"type":"Income","description":"Salary","amount":"2200"},"counter":0}
+login	| {"username" : "foobar", "auth_token" : "09usadf340ujasdf9u4320f9asof"}
+mykey	| "some value"
+--------+-----------------------------------------------------------------------------
+
+We want to be able to store all our data in one entry similiar to the way the value for "login" is stored. 
+The format "login" and "data" follow for their values is called JavaScript Object Notation (JSON). 
+To convert our data to JSON, we will first have to save all our data into one single object (in this case we will use arrays to store our data)
+
+	function saveMovie() {
+
+		...
+		
+		var movie_data = {};
+
+		movie_data["name"] = movie_name;
+		movie_data["year"] = movie_year;
+	}
+
+Doing that would save our movie name and year into an array. Its contents would look something like this:
+
+	{
+		"name" : "some movie name",
+		"year" : 2012
+	}
+
+This is in the format that we can store into localStorage.
+Before we go ahead and save it, we have to convert it into a string so that we dont run into problems across different browsers.
+To do this, you can simply pass our array into the 'stringify' function like so:
+	
+	function saveMovie() {
+
+		...
+
+		var movie_data_string = JSON.stringify(movie_data);
+	}
+
+Lets save it to localStorage!
+
+	function saveMovie() {
+		
+		...
+
+		localStorage.setItem("movie_data", movie_data_string);
+	}
+
+Let's take a look at our complete function:
+
+	function saveMovie() {
+		alert("You clicked me!");
+
+		//grab the data from the form
+		var movie_name = document.forms["my-movie-form"]["movie-name"].value;
+		var movie_year = document.forms["my-movie-form"]["movie-year"].value;
+
+		//check for empties 
+	    if (movie_name == null || movie_name == "") {
+	        alert("You must select the Type of transaction");
+	        return false;
+	    }
+	    if (movie_year == null || movie_year == "") {
+	        alert("You must provide a Description of the transaction");
+	        return false;
+	    }
+
+	    //check if the year is in the correct range
+	    if (movie_year < 999 || movie_year > 9999) {
+	    	alert("The year entered is invlaid. Please enter the correct year");
+	    	return false;
+	    }
+
+	    //convert to single object
+	    var movie_data = {};
+		movie_data["name"] = movie_name;
+		movie_data["year"] = movie_year;
+
+		//save to localStorage
+		localStorage.setItem("movie_data", movie_data_string);
+
+	}
+
+Congratulations! You've successfully written a fully functioning form!
