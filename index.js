@@ -2,10 +2,10 @@
 (function() {
     //if a counter exists then load all transactions
     var counter;
-    if(!localStorage.counter){
+    if(!localStorage.moneymanager_data){
         return false;
     } else {
-        counter = Number(localStorage.counter);
+        counter = Number(JSON.parse(localStorage.moneymanager_data)["counter"]);
         var i;
         for(i = 0; i <= counter; i++){
             addTableElement(i);
@@ -42,18 +42,22 @@ function saveTransaction() {
     transaction['description'] = description;
     transaction['amount'] = amount;
 
+    var data = JSON.parse(localStorage.moneymanager_data);
     //initialise counter to keep track of how many transactions there are so far
     var counter;
-    if(!localStorage.counter){
+    if(!localStorage.moneymanager_data){
         counter = 0;
     } else {
-        counter = Number(localStorage.counter) + 1;
+        counter = Number(JSON.parse(localStorage.moneymanager_data)["counter"]) + 1;
     }
 
+    data["counter"] = counter;
+    data[counter] = transaction;
+
     //save to local storage
-    localStorage.setItem(counter, JSON.stringify(transaction));
-    localStorage.setItem("counter", counter);
-    console.log("object saved: ", JSON.parse(localStorage.getItem(counter)));
+    localStorage.setItem("moneymanager_data", JSON.stringify(data));
+    // localStorage.setItem("counter", counter);
+    console.log("object saved: ", JSON.parse(localStorage.moneymanager_data));
 
     //add table element
     addTableElement(counter);
@@ -69,7 +73,8 @@ function saveTransaction() {
 }
 
 function addTableElement(counter){
-    var transaction = JSON.parse(localStorage.getItem(counter));
+    var transaction = JSON.parse(localStorage.moneymanager_data)[counter];
+    console.log(transaction);
     //add table element
     //get the table tbody
     var transactions = document.getElementById('transactions');
@@ -93,13 +98,15 @@ function addTableElement(counter){
 
 function updateBalance(){
     var counter;
-    if(!localStorage.counter){
+    var data;
+    if(!JSON.parse(localStorage.moneymanager_data)["counter"]){
         return false;
     } else {
-        counter = Number(localStorage.counter);
+        data = JSON.parse(localStorage.moneymanager_data);
+        counter = Number(data["counter"]);
         var i, transaction, sum = 0;
         for(i = 0; i <= counter; i++){
-            transaction = JSON.parse(localStorage.getItem(i));
+            transaction = data[i];
             if(transaction.type == "Expense")
                 sum = sum - Number(transaction.amount);
             if(transaction.type == "Income")
