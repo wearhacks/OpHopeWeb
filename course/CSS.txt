@@ -1,0 +1,186 @@
+Recall: CSS is used to instruct the browser how to render HTML content. Files containing CSS code
+are called "stylesheets". Stylesheets consist of 2 things:
+
+1. We select what to customize (some parts of the HTML page)
+2. We say how to present them
+
+! Although you can do those things "right there" at your HTML file, doing so is considered
+bad practice. "Bad practice" generally means "it works but it is not as maintainable/secure/you-name-it". 
+In this case, it is a bad practice because you should keep the content separate from its presentation
+in case you want to change one without affecting the other.
+
+if: What + How = Rule 
+then: stylesheet = a collection of rules
+
+A natural question to ask is "how do we connect stylesheets with HTML content"?
+
+Recall that we only had a <body> section in our page. This is where the <head> section comes in:
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+        <h1>My first web page</h1>
+        <p>Hello world!</p>
+    </body>
+</html>
+
+It contains a <link> tag which links a page with an external resource, in this case the
+stylesheet file, named "styles.css". Overall, do not worry about what the other attributes
+mean for the mooment, they more or less say "hey, this is a CSS stylesheet". 
+Notice there is no corresponding </link> tag!
+
+Exercise: Add a header section to your page, just before the body section.
+Exercise: Inside your header, add a link to a CSS stylesheet called "semantic.min.css".
+
+Extra: Another thing that you can put inside the header section is the title of your page. 
+       The title is what is displayed on the tab/window of your browser that's corresponding to the page:
+
+<head>
+    ...
+    <title>Awesome Page</title>
+    ...
+</head>
+
+Exercise: Add the title "Money Manager" to your page.
+
+Before going further with styling our page, let's have a brief look at how CSS works.
+Remember, CSS is all about selecting some parts of the page and telling the browser how to style it.
+Selecting parts of the page is done with "selectors". For example, going back to the first page we wrote:
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>Hello world!</p> 
+    </body>
+</html>
+
+if we want to display the "Hello world" text as red, inside the stylesheet we (1) select all paragraph elements
+and (2) set their color to red:
+
+p {
+    color: red;
+}
+
+Simple enough, right?
+
+Simple Selectors:
+
+   - Elements: This is what we just saw. You only need to provide the element's name:
+               (e.g. "p" will apply the style to all elements)
+   
+   - Classes & IDs: you can use those to apply styles to many elements or a single one respectively.
+   
+   --- index.html ---
+   <h1 class="red">My first web page</h1>
+   <p class="red">Hello world!</p>
+   -----------------
+
+   --- styles.css ---
+   .red {
+       color: red;
+   }
+   -----------------
+
+   --- index.html ---
+   <h1 class="red">My first web page</h1>
+   <p class="red" id="HW">Hello world!</p>
+   ------------------
+
+   --- styles.css ---
+   .red {
+       color: red;
+   }
+   #HW {
+       font-style: italic;
+   }
+   -----------------
+
+   What if you want to apply a style to a specific section of the page? So far you have only seen ways
+   to apply a style to one element or elements that have the same class but might be on different parts
+   of the pages.
+
+   You could use a class for that but it doesn't feel very elegant, does it? It would fall under the
+   "bad practices" label we saw earlier.
+
+   This is where <div> comes in. You can take any number of elements and wrap them with <div> to
+   specify a section in the page. Think "(div)ision":
+
+   <div class="red">
+      <h1>My first web page</h1>
+      <p>Hello world!</p>
+   </div>
+
+Using just these basic selectors you would be able to do a lot of customization. Getting nice results
+with hand-written CSS takes practice, however, so we will facilitate this process by
+giving you a framework to work with.
+
+A framework in our case will be a ready-to-use stylesheet which will work against <div>s and classes
+you embed in your HTML.
+
+Let's begin!
+
+Exercise: Wrap all <body> contents into a div.
+Exercise: Add 2 classes to this <div>: "ui" and "container".
+
+It already looks a lot better. This was just so that your page can be displayed correctly
+across different screen sizes, something which has become very important as pages are viewed
+on all kinds of devices these days (phones, tablets...).
+
+Exercise: Those headings are aligned to the left but it would be nice to have them aligned to the center.
+          Add the following classes to the headings: "ui", "center", "aligned", "header" to achieve that.
+Exercise: Add the "ui" and "form" classes to the form.
+
+The form elements look a bit nicer now, don't they?
+
+Usually frameworks work with a grid system for positioning. In the good old days that were not
+so great for artsy web designers, people used to use HTML tables for layouts. But now this would
+be considered bad practice.
+
+Instead, most frameworks enable developers to arrange elements in a grid just by adding some
+classes to them.
+
+The framework we are using, Semantic UI, by default uses a grid that consists of 16 columns. So you
+could fill it up with 16 buttons, for example or you could make some elements take up more space than
+others.
+
+Let's look at how to use the grid system for our form elements. We have 16 columns to use
+and 4 elements. We can try making each element as wide as 4 columns and see how it plays out.
+
+Exercise: Wrap the <select> and the 2 input fields in a <div> that has the classes "twelve", "wide" and "column".
+Exercise: Wrap the button in a <div> that has the classes "four", "wide" and "column".
+
+Hm, there seems like there is something spooky going on. Indeed, by just saying that the first
+3 elements take up 12 columns just stretches each one of them to fill up the space while they
+remain stacked vertically. We should fix that.
+
+Exercise: Wrap the <select> and the <input> fields in a <div> with the classes "three" and "fields" to
+          specify there are 3 separate fields there.
+
+Looks like we fixed that. There are still some issues: the fields are stuck together and the button doesn't
+take much as much space. We can style each element separately:
+
+Exercise: Wrap the dropdown to a <div> that has the "field" class.
+Exercise: Repeat with the other 2 input fields.
+Exercise: Add the classes "ui", "primary", "button" to the <input> tag that represents the button.
+
+Done with the form! Much nicer.
+
+Now only the table is left.
+
+Exercise: Add the classes "ui", "celled" and "table" to the <table> tag.
+
+Great, the table is done too.
+
+Now it should be apparent that we have assigned too much space to the button.
+We can cut it down to 2 columns for it while leaving fourteen for the rest.
+
+Exercise: Change the amount of space the input fields take to *fourteen* columns.
+Exercise: The button overflows now. Change the number of columns it spans to 2.
+
+That concludes the introduction to CSS. Although using frameworks is a common
+practice amongst web designers, knowing how to write CSS by hand is always handy.
+
+A good starting point is http://www.w3schools.com/css/. Experiment freely, the more you "break" stuff the more you will learn!

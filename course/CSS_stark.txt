@@ -1,0 +1,677 @@
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'CSS Reloaded',
+    text: 'Recall: the purpose of HTML is to describe what should be rendered by the browser.The easiest way to make an HTML page that we can view at our browser is to create a file that contains HTML code and open it with the browser. We will have you writing some HTML shortly *right here* though!
+
+In a programming manner:
+_if_: What + How = **Rule** 
+_then_: stylesheet = a **collection** of rules'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'Programming 101: Bad Practices',
+    text: 'Although you can do those things "right there" at your HTML file, doing so is considered
+a bad practice. "Bad practice" generally means "it works **but** it is not as maintainable/secure/you-name-it". 
+In this case, it is a bad practice because you should keep the content separate from its presentation
+in case you want to change one without affecting the other.'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'Programming 101: Bad Practices',
+    text: 'A natural question to ask is "**how** do we connect stylesheets with HTML content"? Recall that we only had a <body> section in our page. This is where the <head> section comes in:
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+        <h1>My first web page</h1>
+        <p>Hello world!</p>
+    </body>
+</html>
+```'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'Programming 101: Bad Practices',
+    text: '```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+        <h1>My first web page</h1>
+        <p>Hello world!</p>
+    </body>
+</html>
+```
+
+It contains a <link> tag which links a page with an external resource, in this case the
+stylesheet file, named "styles.css". Overall, do not worry about what the other attributes
+mean for the mooment, they more or less say "hey, this is a CSS stylesheet". 
+Notice there is no corresponding </link> tag!'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'exercise',
+    title: 'Adding a CSS stylesheet',
+    defaultHTML: '
+    <html>
+        %s
+        <body>
+            <h1>Money Manager</h1>
+            <h2>Transactions<h2>
+        </body>
+        <form>
+            <select name="type">
+                <option value="" disabled selected>Choose a transaction type:</option>
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+            </select>
+            <input type=\"text\" placeholder=\"Description\" name=\"description\">
+            <input type="number" placeholder="Amount" name="amount">
+            <input type="button" value="Submit">
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td>Balance:</td>
+                    <td></td>
+                </tr>
+             </tfoot>
+        </table>
+    </html>',
+    initial: '',
+    text: 'Create the link to a CSS stylesheet',
+    exercises: {
+        type: 'html',
+        tasks: [
+            {
+                text: 'Add a header section to your page, just before the body section.',
+                passHtml: '<head></head>'
+            },
+            {
+                text: 'Inside your header, add a link to a CSS stylesheet called "semantic.min.css".',
+                passHtml: '<head><link rel="stylesheet" type="text/css" href="semantic.min.css"></head>'
+            },
+            {
+                text: 'Another thing that you can put inside the header section is the **title** of your page. The title is what is displayed on the tab/window of your browser that's corresponding to the page:
+
+```html
+<head>
+    ...
+    <title>Awesome Page</title>
+    ...
+</head>
+```
+
+Add "Money Manager" as the title of the page.',
+                passHtml: '<head><title>Money Manager</title><link rel="stylesheet" type="text/css" href="semantic.min.css"></head>'
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'CSS Selectors',
+    text: 'Before going further with styling our page, let's have a brief look at how CSS works.
+Remember, CSS is all about selecting some parts of the page and telling the browser how to style it.
+Selecting parts of the page is done with (wait for it) *selectors*. For example, going back to the first page we wrote:
+
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>My first web page</h1>
+        <p>Hello world!</p>
+    </body>
+</html>
+```
+
+if we want to display the "Hello world" text as red, inside the stylesheet we (1) select all paragraph elements
+and (2) set their color to red:
+
+```css
+p {
+    color: red;
+}
+```
+
+Simple enough, right?'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'CSS Selectors',
+    text: 'Simple Selectors:
+
+   *Elements: This is what we just saw. You only need to provide the element's name (e.g. "p" will apply the style to all <p> elements).
+   
+   *Classes & IDs: you can use those to apply styles to many elements or a single one respectively.'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'CSS Selector Examples',
+    text: '```html
+<h1 class="red">My first web page</h1>
+<p class="red">Hello world!</p>
+```
+
+```css
+.red {
+   color: red;
+}
+```'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'CSS Selector Examples',
+    text: '```html
+<h1 class="red">My first web page</h1>
+<p class="red" id="HW">Hello world!</p>
+```
+
+```css
+.red {
+   color: red;
+}
+#HW {
+   font-style: italic;
+}
+```'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'CSS Selector Examples',
+    text: 'What if you want to apply a style to a specific section of the page? So far you have only seen ways
+to apply a style to one element or elements that have the same class but might be on different parts
+of the pages.
+
+You could use a class for that but it doesn't feel very elegant, does it? It would fall under the
+"bad practices" label we saw earlier.
+
+This is where <div> comes in. You can take any number of elements and wrap them with <div> to
+specify a section in the page. Think "(div)ision":
+
+```html
+<div class="red">
+  <h1>My first web page</h1>
+  <p>Hello world!</p>
+</div>
+```'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'CSS Selector Examples',
+    text: 'Using just these basic selectors you would be able to do a lot of customization. Getting nice results
+with hand-written CSS takes practice, however, so we will facilitate this process by
+giving you a framework to work with. We will be using a framework called Semantic UI.'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'exercise',
+    title: 'Body Wrapper',
+    defaultHTML: '
+    <html>
+        <head>
+            <title>Money Manager</title>
+            <link rel="stylesheet" type="text/css" href="semantic.min.css">
+        </head>
+        %s
+        <body>
+            <h1>Money Manager</h1>
+            <h2>Transactions<h2>
+            <form>
+                <select name="type">
+                    <option value="" disabled selected>Choose a transaction type:</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+                <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                <input type="number" placeholder="Amount" name="amount">
+                <input type="button" value="Submit">
+            </form>
+            <table>
+                <thead>
+                   <tr>
+                      <th>Type</th>
+                      <th>Description</th>
+                      <th>Amount</th>
+                   </tr>
+               </thead>
+               <tbody></tbody>
+               <tfoot>
+                   <tr>
+                       <td>Balance:</td>
+                       <td></td>
+                   </tr>
+               </tfoot>
+            </table>
+        </body>
+    </html>',
+    initial: '',
+    text: 'Apply your basic knowledge of <div> and CSS classes.',
+    exercises: {
+        tasks: [
+            {
+                text: 'Wrap all <body> contents into a <div>: <body><div>...',
+                passHtml: '
+                    <body>
+                        <div class="ui container">
+                        <h1>Money Manager</h1>
+                        <h2>Transactions<h2>
+                        <form>
+                            <select name="type">
+                                <option value="" disabled selected>Choose a transaction type:</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </select>
+                            <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                            <input type="number" placeholder="Amount" name="amount">
+                            <input type="button" value="Submit">
+                        </form>
+                        <table>
+                            <thead>
+                               <tr>
+                                  <th>Type</th>
+                                  <th>Description</th>
+                                  <th>Amount</th>
+                               </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                               <tr>
+                                   <td>Balance:</td>
+                                   <td></td>
+                               </tr>
+                            </tfoot>
+                        </table>
+                    </body>'
+            },
+            {
+                text: 'Add 2 classes to this <div>: \"ui\" and \"container\".',
+                passCss: ["ui", "container"].every(x => $("body > div", doc).hasClass(x))
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+    type: 'exercise',
+    title: 'Heading Styling',
+    defaultHTML: '
+    <html>
+        <head>
+            <title>Money Manager</title>
+            <link rel="stylesheet" type="text/css" href="semantic.min.css">
+        </head>
+        <body>
+            <div class="ui container">
+                <h1>Money Manager</h1>
+                <h2>Transactions<h2>
+                <form>
+                    <select name="type">
+                        <option value="" disabled selected>Choose a transaction type:</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                    <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                    <input type="number" placeholder="Amount" name="amount">
+                    <input type="button" value="Submit">
+                </form>
+                <table>
+                    <thead>
+                       <tr>
+                          <th>Type</th>
+                          <th>Description</th>
+                          <th>Amount</th>
+                       </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                       <tr>
+                           <td>Balance:</td>
+                           <td></td>
+                       </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </body>
+    </html>',
+    initial: '',
+    text: 'It already looks a lot better. This was just so that your page can be displayed correctly
+across different screen sizes, something which has become very important as pages are viewed
+on all kinds of devices these days (phones, tablets...).',
+    exercises: {
+        tasks: [
+            {
+                text: 'Those headings are aligned to the left but it would be nice to have them aligned to the center. Add the following classes to the them: "ui", "center", "aligned", "header" to achieve that.",
+                passCss: jQuery.inArray(false, $("h1, h2", doc).map(function(e) { return ["ui", "center", "aligned", "header"].every(y => $(this).hasClass(y)); } ))
+            },
+            {
+                text: 'Add the \"ui\" and \"form\" classes to the form.',
+                passCss: jQuery.inArray(false, $("h1, h2", doc).map(function(e) { return ["ui", "center", "aligned", "header"].every(y => $(this).hasClass(y)); } )),
+                passMessage: 'The form elements look a bit nicer now, huh!'
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'Grids',
+    text: 'Usually frameworks work with a grid system for positioning. In the good old days which were not
+so great for artsy web designers, people used to use HTML tables for layouts. But now this would be considered bad practice.
+
+Instead, most frameworks enable developers to arrange elements in a grid just by adding some classes to them.
+
+The framework we are using, Semantic UI, by default uses a grid that consists of **16** columns. So you
+could fill it up with 16 buttons, for example or you could make some elements take up more space than
+others.'
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'exercise',
+    title: 'Semantic Grids',
+    defaultHTML: '
+    <html>
+        <head>
+            <title>Money Manager</title>
+            <link rel="stylesheet" type="text/css" href="semantic.min.css">
+        </head>
+        <body>
+            <div class="ui container">
+                <h1 class="ui center aligned header">Money Manager</h1>
+                <h2 class="ui center aligned header">Transactions<h2>
+                <form>
+                    <select name="type">
+                        <option value="" disabled selected>Choose a transaction type:</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                    <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                    <input type="number" placeholder="Amount" name="amount">
+                    <input type="button" value="Submit">
+                </form>
+                <table>
+                    <thead>
+                       <tr>
+                          <th>Type</th>
+                          <th>Description</th>
+                          <th>Amount</th>
+                       </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                       <tr>
+                           <td>Balance:</td>
+                           <td></td>
+                       </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </body>
+    </html>',
+    initial: '',
+    text: 'Let\'s look at how to use the Semantic grid system for our form elements. We have 16 columns to use
+and 4 elements. We can try making each element as wide as 4 columns and see how it plays out.',
+    exercises: {
+        tasks: [
+            {
+                text: 'Wrap the <form> contents in a <div> that has the classes "ui" and "grid".',
+                passHtml: '
+                <form>
+                    <div class="ui grid">
+                        <select name="type">
+                            <option value="" disabled selected>Choose a transaction type:</option>
+                            <option value="Income">Income</option>
+                            <option value="Expense">Expense</option>
+                        </select>
+                        <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                        <input type="number" placeholder="Amount" name="amount">
+                        <input type="button" value="Submit">
+                    </div>
+                </form>',
+                passCss: ["ui", "grid"].every(x => $("form > div", doc).hasClass(x))            },
+            {
+                text: 'Wrap the <select> and the 2 first input fields in a <div> that has the classes "twelve", "wide" and "column".',
+                passHtml: '
+                <div class="twelve wide column">
+                    <select name="type">
+                        <option value="" disabled selected>Choose a transaction type:</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                    <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                    <input type="number" placeholder="Amount" name="amount">
+                </div>',
+                passCss: ["twelve", "wide", "column"].every(x => $("select", doc).closest("div").hasClass(x))
+            },
+            {
+                text: 'Wrap the button in a <div> that has the classes "four", "wide" and "column".',
+                passHtml: '<div class="two wide column"><input type="button" value="Submit"></div>',
+                passCss: ["four", "wide", "column"].every(x => $(":button", doc).closest("div").hasClass(x))
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'exercise',
+    title: 'Semantic Grids',
+    defaultHTML: '
+    <html>
+        <head>
+            <title>Money Manager</title>
+            <link rel="stylesheet" type="text/css" href="semantic.min.css">
+        </head>
+        <body>
+            <div class="ui container">
+                <h1 class="ui center aligned header">Money Manager</h1>
+                <h2 class="ui center aligned header">Transactions<h2>
+                <form class="ui form">
+                    <div class="ui grid">
+                        <div class="fourteen wide column">
+                            <select name="type">
+                                <option value="" disabled selected>Choose a transaction type:</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </select>
+                            <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                            <input type="number" placeholder="Amount" name="amount">
+                        </div>
+                        <div class="two wide column">
+                            <input type="button" value="Submit">
+                        </div>
+                    </div>
+                </form>
+                <table>
+                    <thead>
+                       <tr>
+                          <th>Type</th>
+                          <th>Description</th>
+                          <th>Amount</th>
+                       </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                       <tr>
+                           <td>Balance:</td>
+                           <td></td>
+                       </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </body>
+    </html>',
+    initial: '',
+    text: 'Hm, there seems like there is something spooky going on. Indeed, by just saying that the first 3 elements take up 12 columns just stretches each one of them to fill up the space while they remain stacked vertically. We should fix that.',
+    exercises: {
+        tasks: [
+            {
+                text: 'Wrap the <select> and the <input> fields in a <div> with the classes "three" and "fields" to specify there are 3 separate fields there.',
+                passHtml: '
+                    <div class="fourteen wide column">
+                        <div class="three fields">
+                            <select name="type">
+                                <option value="" disabled selected>Choose a transaction type:</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </select>
+                            <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                            <input type="number" placeholder="Amount" name="amount">
+                        </div>
+                    </div>',
+                passMessage: 'Looks like we fixed that. There are still some issues: the fields are stuck together and the button doesn't take much as much space. We can style each element separately...'
+            },
+            {
+                text: 'Wrap the <select> dropdown to a <div> that has the "field" class.',
+                passHtml: '
+                        <div class="three fields">
+                            <div class="field">
+                                <select name="type">
+                                    <option value="" disabled selected>Choose a transaction type:</option>
+                                    <option value="Income">Income</option>
+                                    <option value="Expense">Expense</option>
+                                </select>
+                            </div>
+                            <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                            <input type="number" placeholder="Amount" name="amount">
+                        </div>',
+                passCss: ["field"].every(x => $("select", doc).closest("div").hasClass(x))
+            },
+            {
+                text: 'Repeat with the other 2 input fields: wrap them in a <div> that has the class "field".',
+                passHtml: '<div class="field"><input type="text" placeholder="Description" name="description"></div><div class="field"><input type="number" placeholder="Amount" name="amount"></div>',
+                passCss: $(".three.fields", doc).children().slice(-2).hasClass("field"),
+                passMessage: 'Done with the form! Much nicer. Now only the table is left!'
+            },
+            {
+                text: 'Add the classes "ui", "primary", "button" to the <input> tag that represents the button.',
+                passCss: ["ui", "primary", "button"].every(x => $(":button", doc).hasClass(x))
+                passMessage: 'Done with the form! Much nicer. Now only the table is left!'
+            }
+
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'exercise',
+    title: 'Table Styling',
+    defaultHTML: '
+    <html>
+        <head>
+            <title>Money Manager</title>
+            <link rel="stylesheet" type="text/css" href="semantic.min.css">
+        </head>
+        <body>
+            <div class="ui container">
+                <h1 class="ui center aligned header">Money Manager</h1>
+                <h2 class="ui center aligned header">Transactions<h2>
+                <form class="ui form">
+                    <div class="ui grid">
+                        <div class="fourteen wide column">
+                            <div class="three fields">
+                                <div class="field">
+                                    <select name="type">
+                                        <option value="" disabled selected>Choose a transaction type:</option>
+                                        <option value="Income">Income</option>
+                                        <option value="Expense">Expense</option>
+                                    </select>
+                                </div>
+                                <div class="field"><input type="text" placeholder="Description" name="description"></div>
+                                <div class="field"><input type="number" placeholder="Amount" name="amount"></div>
+                            </div>
+                        </div>
+                        <div class="two wide column">
+                            <input type="button" class="ui primary button" value="Submit">
+                        </div>
+                    </div>
+                </form>
+                <table>
+                    <thead>
+                       <tr>
+                          <th>Type</th>
+                          <th>Description</th>
+                          <th>Amount</th>
+                       </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                       <tr>
+                           <td>Balance:</td>
+                           <td></td>
+                       </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </body>
+    </html>',
+    initial: '',
+    text: 'Now only the table is left.',
+    exercises: {
+        tasks: [
+            {
+                text: 'Add the classes "ui", "celled" and "table" to the <table> tag.',
+                passMessage: 'Great, the table is done too.'
+            },
+            {
+                text: 'Now it should be apparent that we have assigned too much space to the button. We can cut it down to 2 columns for it while leaving fourteen for the rest. Change the amount of space the input fields take to *fourteen* columns.',
+                passCss: ["fourteen", "wide", "column"].every(x => $("select", doc).closest("div").hasClass(x))
+            },
+            {
+                text: 'The button overflows now. Change the number of columns it spans to 2.',
+                passCss: ["two", "wide", "column"].every(x => $(":button", doc).closest("div").hasClass(x))
+                passMessage: 'Good job!'
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: 'instruction',
+    title: 'Well done!',
+    text: 'That concludes the introduction to CSS. Although using frameworks is a common
+practice amongst web designers, knowing how to write CSS by hand is always handy.
+
+A good starting point is reading the material at http://www.w3schools.com/css/ and experimenting freely. The more you "break" stuff the more you will learn!'
+}
+--------------------------------------------------------------------
