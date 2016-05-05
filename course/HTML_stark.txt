@@ -1,0 +1,449 @@
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "HTML Reloaded",
+    text: "Recall: the purpose of HTML is to describe what should be rendered by the browser.\nThe easiest way to make an HTML page that we can view at our browser is to create a\nfile that contains HTML code and open it with the browser. We will have you writing some\nHTML shortly *right here* though!"
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Hello World!",
+    text: "Some programming traditions are **not** to be taken lightly... let alone being broken. 
+           Writing code that ends up in "Hello world" being displayed on your screen is one of them.
+           Here is a version of "Hello World" in HTML:
+
+           ```html
+           <!DOCTYPE html>
+           <html>
+               <body>
+                   <p>Hello world!</p> 
+               </body>
+           </html>
+           ```"
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Hello World Explained",
+    text: "Whoah! Let's see what's going on there:\n\n
+           1. We are telling the browser that this file's (*doc*ument's) content type is HTML: <!DOCTYPE html>
+              If it helps, remember document + type = doctype!
+           2. As if the doctype was not enough, we also have an HTML *tag/element*: <html>...</html>
+              All content and annotative data goes in there.
+           3. Next, we define the *body* of the document. Why a body? Because in HTML pages there is also
+              a head as we will see later.
+           4. Finally, for the actual content, we define a paragraph inside <body> using the <p> tag. 
+              It contains the text which will be displayed."
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "exercise",
+    title: "Your Own First Page",
+    defaultHtml: "%s",
+    initial: "",
+    text: "Go ahead then, make your own "Hello World" page!",
+    exercises: {
+        type: "html",
+        tasks: [
+            {
+                text: "First, type the doctype!",
+                passHtml: "<!doctype html>"
+            },
+            {
+                text: "Second, add the <html> element. Remember to match it with a closing one! (</html>)",
+                passHtml: "<html></html>"
+            },
+            {
+                text: "Next up, <body>. It must go *inside* <html>!",
+                passHtml: "<body></body>"
+            },
+            {
+                text: "Finally, make a paragraph containing some text inside the body, using <p>.",
+                passHtml: "<p>.*</p>"
+            }
+        ]
+    }
+};
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "HTML pages as trees",
+    text: "Every HTML document itself is what we call a "tree". There is the "root"
+           element (<html>) inside which we embed other tags. We can keep embedding 
+           tags inside one another to our heart's desire, until we get to a "final" element.
+           In our "Hello World" page this is the "Hello World" text itself."
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "HTML pages as trees (continued)",
+    text: "Think of an HTML page as a family tree. Because we do not put *anything* except for the doctype
+            outside, the <html> element is the ancestor of every other tag in the page: the <body> element 
+            is one of its children. Similarly, the <p> element is a child of <body>. This concept 
+            will be important for manipulating HTML pages with small programs (called "scripts") 
+            written in the JavaScript language later."
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "More HTML...",
+    text: "We could have put anything we wanted in the body as long as the browser knows what to do with
+           it. HTML has all sorts of elements you can put in there as long as you (and the browser) know about them. 
+
+           Let's take a tour of a few other tags we can use inside HTML pages. While doing that, we
+will develop a simple page that will serve as the interface for a money management application.
+"
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Headings",
+    text: "h1, h2, h3, h4. These are usually used for titles and similar content. 
+                            They go from h1 up to h4, in order of scope: h1 is the super-heading
+                            of h2 and so on. For example:
+                            
+            ```html
+            <h1>NBA Team Rosters</h1>
+            <h2>Eastern Conference</h2>
+            <h3>Southeast Division</h3>
+            <h4>Atlanta Hawks</h4>
+            ```
+           "
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "exercise",
+    title: "Add Headings",
+    defaultHtml: "<html>\n<head></head>\n\t<body>%s\n\t</body>\n</html>",
+    initial: "",
+    text: "Add headings to a blank page.",
+    exercises: {
+        type: "html",
+        tasks: [
+            {
+                text: "Create the page's main header which displays "Money Manager" using <h1>.",
+                passHtml: "<h1>Money Manager</h1>"
+            },
+            {
+                text: "Create a subheader which reads "Transactions" using <h2>.",
+                passHtml: "<h2>Transactions</h2>"
+            }
+        ]
+    }
+};
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Dropdown Lists",
+    text: "
+           ```html
+           <select name="conference">
+                <option disabled selected>Choose a conference:</option>
+                <option value="Eastern">Eastern Conference</option>
+                <option value="Western">Western Conference</option>
+           </select>
+
+           This is used whenever you have a list of values from which the user would 
+           have to choose (one only!). You supply a list of options as <option> tags.
+           Each <option> can have a value *attribute*. Attributes are accompanying HTML
+           elements either to provide additional information to the browser about their 
+           rendering or to provide values that are used by other code (e.g. CSS stylesheets,
+
+           The "value" attribute in <option> tags, in particular, is used by scripts that are
+           supposed to look at the option that was selected and do something with it. This
+           can be different from the text contained in the tag.
+           JavaScript scripts).
+           
+           The first <option> in that example serves to indicate to the user that they should select one
+           of the other options using the dropdown. So it is selected by default using the "selected" attribute. 
+           Since it is not a real option, it is disabled with the "disabled" attribute... and it has no value.  "
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "exercise",
+    title: "Add A Dropdown List",
+    defaultHtml: "
+        <html>
+            <body>
+                <h1>Money Manager</h1>
+                <h2>Transactions<h2>
+            </body>
+        </html>",
+    initial: "",
+    text: "Add a list that contains transaction type options.",
+    exercises: {
+        type: "html",
+        tasks: [
+            {
+                text: "Make a <select> tag to choose between an \"Income\" and an \"Expense\" transaction. Name it \"transaction_type\".",
+                passHtml: "<select name="transaction_type></select>"
+            },
+            {
+                text: "Add 2 options: one for \"Income\" transactions and one for expenses.",
+                passHtml: "<option value=\"Income\">Income</option><option value=\"Exprenses\">Exprenses</option>"
+            },
+            {
+                text: "Add an instructive option tag that is disabled and selected by default with the text \"Choose a transaction type:\",
+                passHtml: "<option disabled selected>Choose a transaction type:</option>"
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Forms",
+    text: "Forms: They are used when we want to submit data to another program (usually a script) for processing. They consist of a <form> tag that wraps a number of <input> tags which contain the actual data that is sent over. The input can be, for example, text fields, radio buttons, buttons...
+
+  ```html
+  <form name="player_submission"> 
+      <input type="text" placeholder="First Name" name="first_name">
+      <input type="text" placeholder="Last Name" name="last_name">
+      <input type="number" placeholder="Jersey Number" name="jersey_number">
+      <input type="button" value="Submit">
+  </form>
+  ```
+
+  Notice how the input tags do not contain a matching closing tag because they do not have any actual text content!"
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "exercise",
+    title: "Add A Form",
+    defaultHtml: "
+        <html>
+            <body>
+                <h1>Money Manager</h1>
+                <h2>Transactions<h2>
+            </body>
+            %s
+        </html>",
+    initial: "<select name="type">
+                <option value="" disabled selected>Choose a transaction type:</option>
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+              </select>",
+    text: "Make a form to create new transaction entries.",
+    exercises: {
+        type: "html",
+        tasks: [
+            {
+                text: "Create a form named \"new_transaction\" to create new transaction entries around the <select> tag you made previously.",
+                passHtml: "<form>
+                                <select name="type">
+                                    <option value="" disabled selected>Choose a transaction type:</option>
+                                    <option value="Income">Income</option>
+                                    <option value="Expense">Expense</option>
+                                 </select>
+                           </form>"
+            },
+            {
+                text: "Add to it an input field that will contain text for the Description of a transaction.",
+                passHtml: "<input type=\"text\" placeholder=\"Description\" name=\"description\">"
+            },
+            {
+                text: "Add another input field that will contain the amount of a transaction.",
+                passHtml: "<input type="number" placeholder="Amount" name="amount">"
+            },
+            {
+                text: "Finally, create the tag for the button of the form.",
+                passHtml: "<input type="button" value="Submit">"
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Tables",
+    text: "Tables are used for displaying tabular data: for example, a list of players in a team.
+           They consist of <table> which contains <tr> tags for each (t)able (r)ow.
+           Inside the rows you can either put a (t)able (h)eader (with <th>) or 
+           (t)able (d)ata (with <td>).
+
+           ```html
+           <table>
+               <tr>
+                   <th>First Name</th>
+                   <th>Last Name</th>
+                   <th>Number</th>
+               </tr>
+               <tr>
+                   <td>Tim</td>
+                   <td>Hardaway Jr.</td>
+                   <td>10</td>
+               </tr>
+               <tr>
+                   <td>Kirk</td>
+                   <td>Hinrich</td>
+                   <td>12</td>
+               </tr>
+           </table>
+           ```"
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "exercise",
+    title: "Add A Table",
+    defaultHtml: "
+        <html>
+            <body>
+                <h1>Money Manager</h1>
+                <h2>Transactions<h2>
+            </body>
+            <form>
+                <select name="type">
+                    <option value="" disabled selected>Choose a transaction type:</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+                <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                <input type="number" placeholder="Amount" name="amount">
+                <input type="button" value="Submit">
+            </form>
+            %s
+        </html>",
+    initial: "",
+    text: "Create a table which will contain transaction entries.",
+    exercises: {
+        type: "html",
+        tasks: [
+            {
+                text: "Create a table element. It will contain transaction entries.", 
+                passHtml: "<table></table>"
+            },
+            {
+                text: "Create one row for the header.",
+                passHtml: "<tr></tr>"
+            },
+            {
+                text: "Create 3 header columns: one for the type of the transaction ("Type"), another for the description ("Description") and a final one for the amount ("Amount").",
+                passHtml: "<th>Type</th><th>Description</th><th>Amount</th>"
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Table Sections",
+    text: "Our table will not contain any actual transaction entries yet. We will generate those with a script based on the user input!
+
+  You can use some additional elements to better indicate which section is which on your table
+  ((head)er, body, (foot)er):
+  
+  <table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Number</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Tim</td>
+            <td>Hardaway Jr.</td>
+            <td>10</td>
+            <td>24</td>
+        </tr>
+        <tr>
+            <td>Kirk</td>
+            <td>Hinrich</td>
+            <td>12</td>
+            <td>35</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Average Age</td>
+            <td>29.5</td>
+        <tr>
+    </tfoot>
+  </table>
+  ```"
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "exercise",
+    title: "Add Table Sections",
+    defaultHtml: "
+        <html>
+            <body>
+                <h1>Money Manager</h1>
+                <h2>Transactions<h2>
+            </body>
+            <form>
+                <select name="type">
+                    <option value="" disabled selected>Choose a transaction type:</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+                <input type=\"text\" placeholder=\"Description\" name=\"description\">
+                <input type="number" placeholder="Amount" name="amount">
+                <input type="button" value="Submit">
+            </form>
+            <table>
+                %s
+            </table>
+        </html>",
+    initial: "<th>Type</th><th>Description</th><th>Amount</th>",
+    text: "Split the table into sections and create an additional row to contain the calculated balance.",
+    exercises: {
+        type: "html",
+        tasks: [
+            {
+                text: "Wrap the existing table row into a header section.", 
+                passHtml: "<thead>
+                               <tr>
+                                  <th>Type</th>
+                                  <th>Description</th>
+                                  <th>Amount</th>
+                               </tr>
+                           </thead>"
+            },
+            {
+                text: "Although we have no transactions yet, create a body section on the table to indicate where they will go.
+",
+                passHtml: "<tbody></tbody>"
+            },
+            {
+                text: "Create a footer section which will contain the current balance (incomes - expenses).",
+                passHtml: "<tfoot></tfoot>"
+            },
+            {
+                text: "Create a table row to contain the computed balance.",
+                passHtml: "<tr></tr>"
+            },
+            {
+                text: "Create 2 data columns, one that contains the text "Balance:" and another (empty) that will contain the calculated balance.",
+                passHtml: "<td>Balance:</td><td></td>"
+            }
+        ]
+    }
+}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+{
+    type: "instruction",
+    title: "Table Sections",
+    text: "That wraps it up for the static content of our page. Although all the elements we need are there, you are probably not very impressed by how it looks (we are not, too).  Let's make it a bit prettier with CSS!"
+}
+--------------------------------------------------------------------
